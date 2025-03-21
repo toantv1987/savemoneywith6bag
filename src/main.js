@@ -1,4 +1,4 @@
-import Chart from 'chart.js/auto';
+import Chart from './chart.min.js';
 import { SensorData } from './sensorData.js';
 import { updateDateTime } from './utils.js';
 
