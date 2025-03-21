@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Environmental Monitoring Dashboard</title>
+  
+  <script type="module" crossorigin src="/assets/index-c5de695a.js"></script>
+  <link rel="stylesheet" href="/assets/index-f3fcbf80.css">
+</head>
+<body>
+  <header>
+    <h1>Environmental Monitoring Dashboard</h1>
+    <div class="time-display">
+      <span id="current-date"></span>
+      <span id="current-time"></span>
+    </div>
+  </header>
+
+  <main>
+    <section class="dashboard-grid">
+      <div class="card" id="temperature-card">
+        <div class="card-header">
+          <h2>Temperature</h2>
+          <div class="card-controls">
+            <button class="refresh-btn" data-sensor="temperature">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="current-value">
+            <span id="temperature-value">--</span>
+            <span class="unit">°C</span>
+          </div>
+          <div class="status-indicator" id="temperature-status">Normal</div>
+          <div class="chart-container">
+            <canvas id="temperature-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="humidity-card">
+        <div class="card-header">
+          <h2>Humidity</h2>
+          <div class="card-controls">
+            <button class="refresh-btn" data-sensor="humidity">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="current-value">
+            <span id="humidity-value">--</span>
+            <span class="unit">%</span>
+          </div>
+          <div class="status-indicator" id="humidity-status">Normal</div>
+          <div class="chart-container">
+            <canvas id="humidity-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="pressure-card">
+        <div class="card-header">
+          <h2>Pressure</h2>
+          <div class="card-controls">
+            <button class="refresh-btn" data-sensor="pressure">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="card-content">
+          <div class="current-value">
+            <span id="pressure-value">--</span>
+            <span class="unit">hPa</span>
+          </div>
+          <div class="status-indicator" id="pressure-status">Normal</div>
+          <div class="chart-container">
+            <canvas id="pressure-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" id="summary-card">
+        <div class="card-header">
+          <h2>System Summary</h2>
+        </div>
+        <div class="card-content">
+          <div class="summary-stats">
+            <div class="stat-item">
+              <div class="stat-label">System Status</div>
+              <div class="stat-value" id="system-status">Operational</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Last Update</div>
+              <div class="stat-value" id="last-update">--</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-label">Sensors Online</div>
+              <div class="stat-value" id="sensors-online">3/3</div>
+            </div>
+          </div>
+          <div class="alerts-container">
+            <h3>Recent Alerts</h3>
+            <ul id="alerts-list">
+              <li class="no-alerts">No recent alerts</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Environmental Monitoring Dashboard v1.0</p>
+  </footer>
+
+  
+</body>
+</html>
