@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Ứng dụng kéo thả giao diện</title>
+  <!-- Link tới jQuery UI CSS -->
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <style>
+    .draggable {
+      width: 100px;
+      height: 100px;
+      background-color: #3498db;
+      color: #fff;
+      text-align: center;
+      line-height: 100px;
+      margin: 10px;
+      cursor: move;
+    }
+    .droppable {
+      width: 300px;
+      height: 300px;
+      border: 2px dashed #95a5a6;
+      margin: 10px;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <!-- Các phần tử kéo được -->
+  <div class="draggable" id="item1">Item 1</div>
+  <div class="draggable" id="item2">Item 2</div>
+
+  <!-- Khu vực nhận (drop area) -->
+  <div class="droppable" id="dropArea">
+    Kéo thả vào đây
+  </div>
+
+  <!-- Nút lưu giao diện -->
+  <button id="saveBtn">Lưu giao diện</button>
+
+  <!-- Script: jQuery & jQuery UI -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <script>
+    $(function () {
+      // Thiết lập draggable cho các phần tử
+      $(".draggable").draggable({
+        revert: "invalid"
+      });
+
+      // Thiết lập droppable cho khu vực nhận
+      $(".droppable").droppable({
+        accept: ".draggable",
+        drop: function (event, ui) {
+          // Lấy vị trí của phần tử được kéo trong vùng drop
+          var left = ui.position.left;
+          var top = ui.position.top;
+          var id = ui.draggable.attr("id");
+
+          // Tạo bản sao của phần tử và đặt lại vị trí theo tọa độ
+          var newElem = ui.draggable.clone();
+          newElem.css({
+            "position": "absolute",
+            "left": left,
+            "top": top
+          });
+
+          // Nếu phần tử đã tồn tại thì loại bỏ bản cũ để tránh trùng lặp
+          $(this).find("#" + id).remove();
+          $(this).append(newElem);
+        }
+      });
+
+      // Xử lý sự kiện lưu giao diện
+      $("#saveBtn").click(function () {
+        var data = [];
+        // Duyệt qua các phần tử đã được kéo vào khu vực drop
+        $("#dropArea .draggable").each(function () {
+          var pos = $(this).position();
+          data.push({
+            id: $(this).attr("id"),
+            left: pos.left,
+            top: pos.top
+          });
+        });
+        // Gửi dữ liệu cấu trúc giao diện (JSON) qua AJAX đến server
+        $.ajax({
+          url: "SaveLayout.aspx",
+          type: "POST",
+          data: JSON.stringify({ layout: data }),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: function (response) {
+            alert("Lưu thành công!");
+          },
+          error: function () {
+            alert("Có lỗi xảy ra khi lưu dữ liệu!");
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
